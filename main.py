@@ -52,7 +52,7 @@ class Main:
         # print "Pressed %s at %s, %s" % (state, x, y)
         cmd = self.find_trigger(x, y)
         if cmd == False:
-            print "Could not find command"
+            # print "Could not find command"
             return
 
         if state:
