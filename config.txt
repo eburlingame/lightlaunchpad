@@ -1,0 +1,13 @@
+Button (8, 8)
+    Down: bo
+    Up:
+    RunOnPress: True
+    Type: Bump
+
+
+Button (1, 1)
+    Down: load sequence test
+    Up: unload sequence test
+    RunOnPress: True
+    Type: Switch
+
