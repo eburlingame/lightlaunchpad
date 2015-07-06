@@ -85,7 +85,7 @@ class Main:
     def toggle_leds(self):
         if self.leds_on:
             self.leds_on = False
-        else
+        else:
             self.leds_on = True
 
         self.update_leds()
