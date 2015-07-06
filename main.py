@@ -20,6 +20,8 @@ class Main:
         self.server = ServerClient(address, self)
         self.commands = self.parse_config(path)
 
+        self.leds_on = True
+
         self.LP = Launchpad()  # creates a Launchpad instance (first Launchpad found)
         self.LP.Open()  # start it
         self.LP.Reset()
@@ -55,6 +57,9 @@ class Main:
         return False
 
     def button_press(self, x, y, state):
+        if x == 0 and y == 0 and state:
+            self.toggle_leds()
+
         # print "Pressed %s at %s, %s" % (state, x, y)
         cmd = self.find_trigger(x, y)
         if cmd == False:
@@ -77,9 +82,20 @@ class Main:
             for y in range(0, 4):
                 self.LP.LedCtrlXY(x, y+1, x, y)
 
+    def toggle_leds(self):
+        if self.leds_on:
+            self.leds_on = False
+        else
+            self.leds_on = True
+
+        self.update_leds()
+
     def update_leds(self):
-        for command in self.commands:
-            self.LP.LedCtrlXY(command.x, command.y, command.get_color()[0], command.get_color()[1])
+        if self.leds_on:
+            for command in self.commands:
+                self.LP.LedCtrlXY(command.x, command.y, command.get_color()[0], command.get_color()[1])
+        else:
+            self.LP.Reset()
 
     def run_launchpad(self):
         self.update_leds()
