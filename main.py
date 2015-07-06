@@ -9,9 +9,15 @@ import re
 
 class Main:
     def __init__(self):
+        if len(sys.argv) < 2:
+            print "Not enough arguments"
+            quit()
+
+        address = sys.argv[1]
+
         wd = os.path.dirname(os.path.realpath(__file__))
         path = wd + "/config.txt"
-        self.server = ServerClient()
+        self.server = ServerClient(address, self)
         self.commands = self.parse_config(path)
 
         self.LP = Launchpad()  # creates a Launchpad instance (first Launchpad found)
@@ -62,14 +68,18 @@ class Main:
 
         self.update_leds()
 
-    def update_leds(self):
+    def reset_added(self):
         for command in self.commands:
-            self.LP.LedCtrlXY(command.x, command.y, command.get_color()[0], command.get_color()[1])
+            command.added = False
 
     def color_test(self):
         for x in range(0, 4):
             for y in range(0, 4):
                 self.LP.LedCtrlXY(x, y+1, x, y)
+
+    def update_leds(self):
+        for command in self.commands:
+            self.LP.LedCtrlXY(command.x, command.y, command.get_color()[0], command.get_color()[1])
 
     def run_launchpad(self):
         self.update_leds()

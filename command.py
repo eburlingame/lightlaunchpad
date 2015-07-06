@@ -2,10 +2,11 @@ __author__ = 'eric'
 
 import re
 class Colors:
-    UNPRESSED_RUN = (2, 1)
-    UNPRESSED_ADD = (2, 0)
-    PRESSED_SWITCH = (3, 0)
-    PRESSED_BUMP = (0, 3)
+    UNPRESSED_RUN = (1, 1)
+    UNPRESSED_ADD = (1, 0)
+    PRESSED_SWITCH = (0, 3)
+    PRESSED_BUMP = (3, 0)
+    ADDED = (0, 3)
 
 class TriggerCommand:
 
@@ -16,6 +17,7 @@ class TriggerCommand:
     #     Up: load scene test %0
     #     Type: bump //bump or switch
     #     RunOnPress: True
+    #     AddToBuffer: False
 
     def __init__(self, raw, server):
         self.server = server
@@ -27,8 +29,10 @@ class TriggerCommand:
         self.down = self.parse_down()
         self.type = self.parse_type()
         self.runOnPress = self.parse_runonpress()
+        self.addToBuffer = self.parse_addtobuffer()
 
         self.pressed = False
+        self.added = False
 
     def parse_button(self):
         patrn = "Button \((\d+), (\d+)\)"
@@ -49,6 +53,11 @@ class TriggerCommand:
 
     def parse_runonpress(self):
         patrn = "RunOnPress:\s+?(.+)"
+        group = self.parse_or_raise(patrn)
+        return (group[0] == "true" or group[0] == "True")
+
+    def parse_addtobuffer(self):
+        patrn = "AddToBuffer:\s+?(.+)"
         group = self.parse_or_raise(patrn)
         return (group[0] == "true" or group[0] == "True")
 
@@ -84,12 +93,20 @@ class TriggerCommand:
                 self.pressed = False
 
     def run(self, command):
-        if self.runOnPress:
-            self.server.run_command(command)
+        if self.addToBuffer:
+            if self.runOnPress:
+                self.server.add_to_command(command)
+                self.server.execute_command()
+            else:
+                self.server.add_to_command(command)
+                self.added = True
         else:
-            self.server.add_to_command(command)
+             if self.runOnPress:
+                self.server.run_command(command)
 
     def get_color(self):
+        if self.added:
+            return Colors.ADDED
         if self.pressed:
             if self.type == "switch":
                 return Colors.PRESSED_SWITCH
@@ -100,3 +117,4 @@ class TriggerCommand:
                 return Colors.UNPRESSED_RUN
             else:
                 return Colors.UNPRESSED_ADD
+

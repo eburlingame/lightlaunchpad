@@ -2,12 +2,229 @@ Button (8, 8)
     Down: bo
     Up:
     RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+
+Button (8, 7)
+    Down: unload all
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+
+Button (8, 2)
+    Down: leds_up
+    Up: 101+201+301 * 0
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Switch
+
+Button (8, 1)
+    Down: rise
+    Up: bo
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Switch
+
+
+
+Values
+
+Button (7, 4)
+    Down: * 100
+    Up:
+    RunOnPress: True
+    AddToBuffer: True
+    Type: Bump
+Button (7, 5)
+    Down: * 75
+    Up:
+    RunOnPress: True
+    AddToBuffer: True
+    Type: Bump
+Button (7, 6)
+    Down: * 50
+    Up:
+    RunOnPress: True
+    AddToBuffer: True
+    Type: Bump
+Button (7, 7)
+    Down: * 25
+    Up:
+    RunOnPress: True
+    AddToBuffer: True
+    Type: Bump
+Button (7, 8)
+    Down: * 0
+    Up:
+    RunOnPress: True
+    AddToBuffer: True
     Type: Bump
 
 
-Button (1, 1)
-    Down: load sequence test
-    Up: unload sequence test
+Color Scenes:
+Button (0, 5)
+    Down: load scene red fade default_fd
+    Up: load scene red fade default_fd %0
     RunOnPress: True
+    AddToBuffer: False
+    Type: Switch
+Button (1, 5)
+    Down: load scene green fade default_fd
+    Up: load scene green fade default_fd %0
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Switch
+Button (2, 5)
+    Down: load scene blue fade default_fd
+    Up: load scene blue fade default_fd %0
+    RunOnPress: True
+    AddToBuffer: False
     Type: Switch
 
+Fades:
+
+Button (4, 1)
+    Down: define "default_fd" as "0"
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+Button (5, 1)
+    Down: define "default_fd" as "1"
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+Button (6, 1)
+    Down: define "default_fd" as "3"
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+Button (7, 1)
+    Down: define "default_fd" as "8"
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+
+Button (4, 2)
+    Down: define "default_wt" as "0"
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+Button (5, 2)
+    Down:define "default_wt" as "1"
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+Button (6, 2)
+    Down: define "default_wt" as "3"
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+Button (7, 2)
+    Down: define "default_wt" as "8"
+    Up:
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Bump
+
+
+Color Selection:
+
+Button (0, 6)
+    Down: and group led1_red
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (1, 6)
+    Down: and group led1_green
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (2, 6)
+    Down: and group led1_blue
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (3, 6)
+    Down: and group led1
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+
+Button (0, 7)
+    Down: and group led2_red
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (1, 7)
+    Down: and group led2_green
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (2, 7)
+    Down: and group led2_blue
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (3, 7)
+    Down: and group led2
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+
+Button (0, 8)
+    Down: and group led3_red
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (1, 8)
+    Down: and group led3_green
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (2, 8)
+    Down: and groupled3_blue
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+Button (3, 8)
+    Down: and group led3
+    Up:
+    RunOnPress: False
+    AddToBuffer: True
+    Type: Bump
+
+
+
+Sequences:
+
+Button (0, 1)
+    Down: load sequence rgb fade default_fd wait default_wt
+    Up: unload sequence rgb
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Switch
+Button (1, 1)
+    Down: load sequence rainbw fade default_fd wait default_wt channel group all
+    Up: unload sequence rainbw
+    RunOnPress: True
+    AddToBuffer: False
+    Type: Switch
