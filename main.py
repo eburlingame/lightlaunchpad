@@ -1,11 +1,14 @@
 __author__ = 'eric'
 
-from launchpad.launchpad import *
-from pygame import time
-from command import *
-from client import *
 import os
 import re
+
+from pygame import time
+
+from launchpad.launchpad import *
+from command import *
+from client import *
+
 
 class Main:
     def __init__(self):
